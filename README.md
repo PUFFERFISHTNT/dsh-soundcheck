@@ -2,10 +2,12 @@
 
 给 DeepSeek Harness 加本地音乐分析能力 —— 让文本模型能回答关于一首歌的问题。
 
-**分析在本机**：音频不出本机、不上传、不调用云端推理 · **Windows 专用** · CPU 可跑，不需要 GPU
+**分析在本机**：音频不出本机、不上传、不调用云端推理 · **macOS / Windows** · CPU 可跑，不需要 GPU
 **安装或补装组件时需要联网**：按所选组件下载依赖与模型，完整安装约 570 MB。装完后日常分析在本机执行，不访问网络、不上传音频
 
 ---
+
+> **macOS 版（本仓库）**：上游 0.8.1 的 `package.json` 声明了 `os: ["win32"]`，`lib/index.js` 又把 Python 路径写死成 `venv/Scripts/python.exe`。这个 fork 把两处改成按平台判断（POSIX 用 `venv/bin/python`），并把 venv / 模型放到 `~/.dsh/soundcheck-engine` 与 `~/.dsh/soundcheck-data`，这样插件市场升级替换包目录时不会把 Python 环境一起删掉。安装：`dsh plugin add PUFFERFISHTNT/dsh-soundcheck#macos`。Windows 仍可用上游 `ALittleLov/dsh-soundcheck`。
 
 ## 这是什么
 
@@ -37,7 +39,7 @@
 ## 安装
 
 ```sh
-dsh plugin add ALittleLov/dsh-soundcheck
+dsh plugin add PUFFERFISHTNT/dsh-soundcheck#macos
 ```
 
 第一次分析之前先装引擎：
